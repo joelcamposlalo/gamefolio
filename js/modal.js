@@ -7,7 +7,7 @@ let _dlgActive = false, _dlgTimer = null;
 /* ── Show / hide modal steps ── */
 function _showStep(which) {
   document.getElementById('dialog-step').style.display = which === 'dialog' ? 'flex'  : 'none';
-  document.getElementById('quiz-step').style.display   = which === 'quiz'   ? 'block' : 'none';
+  document.getElementById('quiz-step').style.display   = which === 'quiz'   ? 'flex'  : 'none';
   document.getElementById('result-step').style.display = which === 'result' ? 'block' : 'none';
 }
 

@@ -36,7 +36,7 @@ document.getElementById('menu-prompt').addEventListener('click', startGame);
 document.getElementById('inst-start-btn').addEventListener('click', showMenu);
 
 /* ── Result modal close ── */
-document.getElementById('result-btn').addEventListener('click', closeModal);
+document.getElementById('result-btn').addEventListener('click', () => closeModal());
 
 /* ── Completion banner ── */
 document.getElementById('cb-btn-port').addEventListener('click', showPortfolio);

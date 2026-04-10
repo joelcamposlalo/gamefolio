@@ -15,6 +15,7 @@ function buildPortfolio() {
   /* Labels */
   const lbl = {
     linkedin:  'LinkedIn',
+    github:    'GitHub',
     webPort:   isEs ? '🌐 Portfolio Web' : '🌐 Portfolio',
     whatsapp:  'WhatsApp',
     waMsg:     isEs ? 'Hola Joel, vi tu portfolio!' : 'Hi Joel, I saw your portfolio!',
@@ -74,6 +75,11 @@ function buildPortfolio() {
            href="https://www.linkedin.com/in/joel-campos"
            target="_blank" rel="noopener">
           🔗 ${lbl.linkedin}
+        </a>
+        <a class="c-btn c-btn-gold"
+           href="https://github.com/joelcamposlalo/gamefolio"
+           target="_blank" rel="noopener">
+          🐙 ${lbl.github}
         </a>
         <a class="c-btn c-btn-gold"
            href="https://joelcamposlalo.github.io/portfolio/"

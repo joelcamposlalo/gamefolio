@@ -21,6 +21,8 @@
   gap: 0;
   background: var(--dark);
   position: fixed; inset: 0; z-index: 100;
+  overflow-y: auto;
+  padding: 40px 16px;
 }
 
 #screen-lang canvas {
@@ -31,6 +33,14 @@
   position: relative; z-index: 1;
   display: flex; flex-direction: column;
   align-items: center; gap: 50px;
+  width: 100%; max-width: 600px;
+  margin: auto;
+}
+
+@media (max-height: 600px), (max-width: 480px) {
+  .lang-ui { gap: 28px; }
+  .lang-btn { padding: 16px 28px; }
+  .lang-divider { height: 70px; }
 }
 
 .lang-heading {

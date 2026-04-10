@@ -121,15 +121,19 @@
 
 .c-btn:hover { background: var(--gold); color: var(--dark); }
 
-/* Contact grid — 3 buttons, responsive */
+/* Contact grid — 3 gold + 1 full-width green */
 .contact-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 12px;
   margin-top: 14px;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 600px) {
+  .contact-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 400px) {
   .contact-grid { grid-template-columns: 1fr; }
 }
 

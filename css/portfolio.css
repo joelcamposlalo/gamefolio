@@ -10,7 +10,7 @@
 
 .back-btn {
   font-family: var(--ff);
-  font-size: clamp(8px, 1.2vw, 11px);
+  font-size: clamp(10px, 1.2vw, 11px);
   background: transparent; color: #666;
   border: 1px solid #333; padding: 10px 16px;
   cursor: pointer; margin-bottom: 40px;
@@ -27,14 +27,14 @@
 }
 
 .port-header h1 {
-  font-size: clamp(16px, 3.5vw, 30px);
+  font-size: clamp(18px, 3.5vw, 30px);
   color: var(--gold);
   text-shadow: 0 0 30px rgba(240,192,64,.5);
   margin-bottom: 14px; letter-spacing: 4px;
 }
 
 .port-header .sub {
-  font-size: clamp(9px, 1.3vw, 12px);
+  font-size: clamp(12px, 1.3vw, 12px);
   color: #999; line-height: 2.2;
 }
 
@@ -49,21 +49,21 @@
 }
 
 .port-sec h2 {
-  font-size: clamp(10px, 1.5vw, 13px);
+  font-size: clamp(102x, 1.5vw, 13px);
   color: var(--gold); margin-bottom: 18px;
   padding-bottom: 12px;
   border-bottom: 1px solid rgba(240,192,64,.15);
 }
 
 .port-sec p {
-  font-size: clamp(9px, 1.3vw, 11px);
+  font-size: clamp(12px, 1.3vw, 11px);
   color: var(--bone); line-height: 2.4;
   margin-bottom: 10px;
 }
 
 .port-sec ul { padding-left: 22px; margin-top: 8px; }
 .port-sec li {
-  font-size: clamp(9px, 1.3vw, 11px);
+  font-size: clamp(12px, 1.3vw, 11px);
   color: var(--bone); line-height: 2.4; margin-bottom: 4px;
 }
 
@@ -76,7 +76,7 @@
   background: rgba(26,26,62,.9);
   border: 1px solid rgba(240,192,64,.45);
   color: var(--gold);
-  font-size: clamp(8px, 1.1vw, 10px);
+  font-size: clamp(10px, 1.1vw, 10px);
   padding: 8px 14px;
 }
 
@@ -89,7 +89,7 @@
 .proj-card:last-child { margin-bottom: 0; }
 
 .proj-card h3 {
-  font-size: clamp(9px, 1.3vw, 11px);
+  font-size: clamp(12px, 1.3vw, 11px);
   color: var(--gold); margin-bottom: 10px;
 }
 
@@ -102,7 +102,7 @@
 
 .c-btn {
   font-family: var(--ff);
-  font-size: clamp(9px, 1.3vw, 11px);
+  font-size: clamp(12px, 1.3vw, 11px);
   background: rgba(26,26,62,.9);
   color: var(--gold);
   border: 2px solid var(--gold);
@@ -144,7 +144,7 @@
 
 .port-full-hint {
   margin-top: 14px;
-  font-size: clamp(8px, 1.1vw, 10px);
+  font-size: clamp(10px, 1.1vw, 10px);
   color: #888;
   line-height: 2;
 }

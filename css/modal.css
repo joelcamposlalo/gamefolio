@@ -11,11 +11,25 @@
   background: rgba(0,0,0,.52);
 }
 
+/* Quiz centres the card in the middle of the screen */
+#modal-overlay.quiz-mode {
+  justify-content: center;
+  align-items: center;
+}
+
 /* ── Shared inner container ── */
 .modal-inner {
   max-width: 980px; width: 100%;
   margin: 0 auto;
-  padding: 0 16px 20px;    /* ← bottom padding gives the dialog box breathing room */
+  padding: 0 16px 20px;
+}
+
+/* Quiz mode: inner becomes a flex centring wrapper */
+#modal-overlay.quiz-mode .modal-inner {
+  padding: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* ── Base box style (shared by all three steps) ── */
@@ -89,15 +103,10 @@
 
 #dialog-continue-btn:hover { background: #ffe060; }
 
-/* ── STEP 2: Quiz — full-screen centered card ── */
+/* ── STEP 2: Quiz — centered card ── */
 #quiz-step {
-  position: fixed;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 78;
   display: none;
   flex-direction: column;
-  justify-content: center;
   padding: 40px 32px;
   background: rgba(5,5,14,.98);
   border: 2px solid var(--gold);
@@ -106,12 +115,13 @@
     0 0 60px rgba(240,192,64,.12),
     inset 0 0 40px rgba(240,192,64,.04);
   overflow-y: auto;
-  width: min(640px, calc(100vw - 24px));
-  max-height: 88vh;
+  width: 100%;
+  max-width: 640px;
+  max-height: 85vh;
 }
 
 @media (max-width: 480px) {
-  #quiz-step { padding: 28px 20px; }
+  #quiz-step { padding: 24px 18px; }
 }
 
 #quiz-question {

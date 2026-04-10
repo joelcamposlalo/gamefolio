@@ -6,6 +6,13 @@ let _dlgActive = false, _dlgTimer = null;
 
 /* ── Show / hide modal steps ── */
 function _showStep(which) {
+  const overlay = document.getElementById('modal-overlay');
+  /* Quiz gets full-centre layout; dialog/result stay anchored to bottom */
+  if (which === 'quiz') {
+    overlay.classList.add('quiz-mode');
+  } else {
+    overlay.classList.remove('quiz-mode');
+  }
   document.getElementById('dialog-step').style.display = which === 'dialog' ? 'flex'  : 'none';
   document.getElementById('quiz-step').style.display   = which === 'quiz'   ? 'flex'  : 'none';
   document.getElementById('result-step').style.display = which === 'result' ? 'block' : 'none';
@@ -117,6 +124,7 @@ function closeModal() {
     y: 40, opacity: 0, duration: .3, ease: 'power2.in',
     onComplete: () => {
       overlay.style.display = 'none';
+      overlay.classList.remove('quiz-mode');
       GS.modalOpen = false;
       GS.activeNpc = null;
       checkCompletion();

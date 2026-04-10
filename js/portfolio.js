@@ -1,18 +1,12 @@
-/* ═══════════════════════════════════
-   PORTFOLIO — build, show, back
-═══════════════════════════════════ */
-
 const STACK = ['.NET / C#', 'JavaScript', 'TypeScript', 'React',
                'SQL Server', 'PostgreSQL', '.NET MAUI', 'Git'];
 
-/* WhatsApp number (international) */
 const WA_NUMBER = '523325799804';
 
 function buildPortfolio() {
   const p   = t().port;
   const isEs = lang.current === 'es';
 
-  /* Labels */
   const lbl = {
     linkedin:  'LinkedIn',
     github:    'GitHub',
@@ -29,13 +23,11 @@ function buildPortfolio() {
       <div class="sub">${p.sub}</div>
     </div>
 
-    <!-- About -->
     <div class="port-sec">
       <h2>${p.s1h}</h2>
       <p>${p.s1p}</p>
     </div>
 
-    <!-- Experience -->
     <div class="port-sec">
       <h2>${p.s2h}</h2>
       <span class="co-name">${p.s2company}</span>
@@ -43,7 +35,6 @@ function buildPortfolio() {
       <ul>${p.s2items.map(i => `<li>${i}</li>`).join('')}</ul>
     </div>
 
-    <!-- Stack -->
     <div class="port-sec">
       <h2>${p.s3h}</h2>
       <div class="tags">
@@ -51,7 +42,6 @@ function buildPortfolio() {
       </div>
     </div>
 
-    <!-- Projects (summary) -->
     <div class="port-sec">
       <h2>${p.s4h}</h2>
       ${p.projects.map(proj => `
@@ -66,7 +56,6 @@ function buildPortfolio() {
       </p>
     </div>
 
-    <!-- Contact — real links -->
     <div class="port-sec">
       <h2>${p.s5h}</h2>
       <p>${p.s5p}</p>
@@ -112,7 +101,6 @@ function showPortfolio() {
   );
 }
 
-/* backToGame still available if user came from mid-game (not completion) */
 function backToGame() {
   document.body.classList.remove('scrollable');
   document.getElementById('screen-portfolio').style.display = 'none';

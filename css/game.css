@@ -1,0 +1,216 @@
+/* ═══════════════════════════════════
+   GAME — canvas, HUD, flash, banner
+═══════════════════════════════════ */
+
+/* ── Full-screen game canvas ── */
+#screen-game {
+  position: fixed; inset: 0; z-index: 70;
+  display: none;
+}
+
+#game-canvas {
+  display: block;
+  width: 100vw; height: 100vh;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+/* ─────────────────────────────────
+   HUD — top bar (fixed over canvas)
+───────────────────────────────── */
+#hud {
+  position: fixed; top: 0; left: 0; right: 0;
+  height: 60px; z-index: 72;
+  pointer-events: none;
+  display: none;
+  align-items: center; justify-content: space-between;
+  padding: 0 18px;
+  background: linear-gradient(to bottom, rgba(5,5,8,.97) 55%, transparent);
+  border-bottom: 1px solid rgba(240,192,64,.18);
+}
+
+#hud-name {
+  font-size: var(--fs-sm);
+  color: var(--gold);
+  text-shadow: 0 0 12px rgba(240,192,64,.5);
+  letter-spacing: 2px;
+}
+
+#hud-inventory {
+  display: flex; gap: 8px; align-items: center;
+}
+
+.inv-slot {
+  width: 42px; height: 42px;
+  border: 2px solid #2a2a44;
+  background: rgba(5,5,8,.9);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  font-size: 18px; line-height: 1;
+  transition: border-color .3s, box-shadow .3s;
+}
+
+.inv-slot.filled {
+  border-color: var(--gold);
+  box-shadow: 0 0 14px rgba(240,192,64,.35);
+}
+
+.inv-label {
+  font-size: 4px; color: var(--gold);
+  margin-top: 2px; line-height: 1;
+}
+
+/* ─────────────────────────────────
+   GOLD FLASH overlay
+───────────────────────────────── */
+#gold-flash {
+  position: fixed; inset: 0; z-index: 73;
+  background: rgba(240,192,64,.42);
+  pointer-events: none; opacity: 0;
+}
+
+/* ─────────────────────────────────
+   COMPLETION BANNER
+───────────────────────────────── */
+#completion-banner {
+  position: fixed; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(5,5,12,.98);
+  border: 3px solid var(--gold);
+  box-shadow: 0 0 60px rgba(240,192,64,.35), inset 0 0 40px rgba(240,192,64,.07);
+  padding: 38px 48px;
+  text-align: center; z-index: 75;
+  display: none; min-width: 300px;
+}
+
+#completion-banner h2 {
+  font-size: var(--fs-md);
+  color: var(--gold);
+  text-shadow: 0 0 20px var(--gold);
+  line-height: 2; margin-bottom: 14px;
+}
+
+#completion-banner p {
+  font-size: var(--fs-xs);
+  color: var(--bone); line-height: 2; margin-bottom: 6px;
+}
+
+.cb-actions {
+  display: flex; flex-direction: column;
+  gap: 10px; margin-top: 22px;
+}
+
+.cb-actions button {
+  font-family: var(--ff);
+  font-size: var(--fs-xs);
+  border: none; padding: 13px 18px;
+  cursor: pointer; width: 100%;
+  transition: background .2s, color .2s;
+}
+
+#cb-btn-port {
+  background: var(--gold); color: var(--dark);
+}
+#cb-btn-port:hover { background: #ffe060; }
+
+#cb-btn-replay {
+  background: transparent;
+  color: var(--gold);
+  border: 2px solid rgba(240,192,64,.5) !important;
+}
+#cb-btn-replay:hover {
+  background: rgba(240,192,64,.1);
+  border-color: var(--gold) !important;
+}
+
+/* ─────────────────────────────────
+   TOUCH CONTROLS — D-pad + Talk btn
+   Visible only on touch/coarse-pointer devices
+───────────────────────────────── */
+#touch-controls {
+  position: fixed;
+  bottom: 24px; left: 0; right: 0;
+  z-index: 74;
+  display: none;                     /* hidden by default on desktop */
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 0 28px;
+  pointer-events: none;
+}
+
+/* Show on touch devices */
+@media (pointer: coarse) {
+  #touch-controls { display: flex; }
+}
+
+/* Also show on narrow screens (mobile browsers with mouse sim) */
+@media (max-width: 600px) {
+  #touch-controls { display: flex; }
+}
+
+/* ── D-pad ── */
+#dpad {
+  display: grid;
+  grid-template-columns: repeat(3, 52px);
+  grid-template-rows: repeat(3, 52px);
+  gap: 4px;
+  pointer-events: all;
+}
+
+.dpad-cell { /* empty cells */ }
+
+.dpad-btn {
+  width: 52px; height: 52px;
+  background: rgba(10,10,20,.75);
+  border: 2px solid rgba(240,192,64,.45);
+  border-radius: 6px;
+  color: var(--gold);
+  font-size: 18px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  touch-action: none;
+  transition: background .1s, border-color .1s;
+  backdrop-filter: blur(4px);
+}
+
+.dpad-btn:active,
+.dpad-btn.pressed {
+  background: rgba(240,192,64,.25);
+  border-color: var(--gold);
+}
+
+/* ── Talk / interact button ── */
+#touch-talk-btn {
+  width: 72px; height: 72px;
+  background: rgba(10,10,20,.8);
+  border: 2px solid rgba(240,192,64,.6);
+  border-radius: 50%;
+  color: var(--gold);
+  font-family: var(--ff);
+  font-size: 9px;
+  line-height: 1.4;
+  cursor: pointer;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  touch-action: none;
+  pointer-events: all;
+  backdrop-filter: blur(4px);
+  transition: background .1s, border-color .1s, transform .1s;
+}
+
+#touch-talk-btn:active {
+  background: rgba(240,192,64,.25);
+  border-color: var(--gold);
+  transform: scale(.93);
+}
+
+#touch-talk-btn .talk-key  { font-size: 14px; font-weight: bold; }
+#touch-talk-btn .talk-text { font-size: 5px; margin-top: 2px; letter-spacing: 1px; }
+
+/* Hide touch controls while modal is open (modal sits on top at z-index 76) */
+/* — handled via JS class toggle — */
+#touch-controls.hidden { opacity: 0; pointer-events: none; }

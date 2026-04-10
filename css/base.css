@@ -1,0 +1,44 @@
+/* ═══════════════════════════════════
+   BASE — reset, variables, body
+═══════════════════════════════════ */
+*, *::before, *::after {
+  margin: 0; padding: 0; box-sizing: border-box;
+}
+
+:root {
+  --gold:     #f0c040;
+  --gold-dim: rgba(240,192,64,.18);
+  --dark:     #050508;
+  --dark2:    #0d0d1a;
+  --dark3:    #111428;
+  --bone:     #e0d8c0;
+  --blue:     #1a1a3e;
+  --red:      #8a1515;
+  --ff:       'Press Start 2P', monospace;
+
+  /* responsive font scale (clamped) */
+  --fs-xl:  clamp(16px, 3.5vw, 30px);
+  --fs-lg:  clamp(12px, 2vw, 18px);
+  --fs-md:  clamp(9px,  1.4vw, 12px);
+  --fs-sm:  clamp(7px,  1.1vw, 9.5px);
+  --fs-xs:  clamp(6px,  .9vw,  8px);
+  --fs-2xs: clamp(5px,  .8vw,  7px);
+}
+
+html, body {
+  width: 100%; height: 100%;
+  overflow: hidden;
+  background: var(--dark);
+  color: var(--bone);
+  font-family: var(--ff);
+}
+
+/* shared scroll context for portfolio */
+body.scrollable { overflow: auto; }
+
+@keyframes blink    { 50%  { opacity: 0; } }
+@keyframes pulse-gd { 50%  { box-shadow: 0 0 24px var(--gold); } }
+@keyframes float-up { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+
+.blink    { animation: blink 1s step-end infinite; }
+.float-up { animation: float-up 2.4s ease-in-out infinite; }

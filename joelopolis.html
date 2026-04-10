@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Joelopolis — Gamefolio</title>
+
+
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/screens.css">
+  <link rel="stylesheet" href="css/game.css">
+  <link rel="stylesheet" href="css/modal.css">
+  <link rel="stylesheet" href="css/portfolio.css">
+</head>
+<body>
+
+
+<div id="screen-lang">
+  <canvas id="lang-canvas" style="position:absolute;inset:0;width:100%;height:100%"></canvas>
+  <div class="lang-ui">
+    <div class="lang-heading">
+      <h1 id="lang-title">SELECCIONA TU IDIOMA</h1>
+      <p id="lang-sub">Select your language</p>
+    </div>
+
+    <div class="lang-buttons">
+      <button class="lang-btn" onclick="chooseLang('es')">
+        <span class="lang-flag">🇲🇽</span>
+        ESPAÑOL
+      </button>
+      <div class="lang-divider"></div>
+      <button class="lang-btn" onclick="chooseLang('en')">
+        <span class="lang-flag">🇺🇸</span>
+        ENGLISH
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<div id="screen-instructions" style="display:none">
+  <div class="inst-wrap">
+
+    <h2 class="inst-title"></h2>
+
+
+    <div class="inst-controls">
+      <div class="inst-controls-title"></div>
+
+      <div class="ctrl-row">
+
+        <div class="key-cluster">
+          <span class="key">W</span>
+          <div class="key-row">
+            <span class="key">A</span>
+            <span class="key">S</span>
+            <span class="key">D</span>
+          </div>
+        </div>
+        <span class="ctrl-slash">/</span>
+
+        <div class="key-cluster">
+          <span class="key">↑</span>
+          <div class="key-row">
+            <span class="key">←</span>
+            <span class="key">↓</span>
+            <span class="key">→</span>
+          </div>
+        </div>
+        <span class="ctrl-label" id="ctrl-move-lbl"></span>
+      </div>
+
+      <div class="ctrl-row">
+        <span class="key" style="min-width:38px;font-size:.75em">E</span>
+        <span class="ctrl-label" id="ctrl-talk-lbl"></span>
+      </div>
+    </div>
+
+    <div class="inst-objective">
+      <div class="inst-obj-title"></div>
+      <p class="inst-obj-text"></p>
+    </div>
+
+    <div class="inst-npcs"></div>
+
+    <button class="inst-start-btn" id="inst-start-btn"></button>
+  </div>
+</div>
+
+
+<div id="screen-menu" style="display:none">
+  <canvas id="menu-canvas"></canvas>
+  <div class="menu-content">
+    <div id="menu-title"></div>
+    <div id="menu-subtitle" style="opacity:0"></div>
+    <div id="menu-prompt" style="opacity:0"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SCREEN 3 — GAME (fullscreen canvas)
+══════════════════════════════════════ -->
+<div id="screen-game" style="display:none">
+  <canvas id="game-canvas"></canvas>
+
+  <!-- HUD -->
+  <div id="hud" style="display:none">
+    <div id="hud-name"></div>
+    <div id="hud-inventory">
+      <div class="inv-slot" id="slot-0"></div>
+      <div class="inv-slot" id="slot-1"></div>
+      <div class="inv-slot" id="slot-2"></div>
+    </div>
+  </div>
+
+  <!-- Gold flash -->
+  <div id="gold-flash"></div>
+
+  <!-- Touch controls (D-pad + talk button) — visible on mobile/touch only via CSS -->
+  <div id="touch-controls">
+    <!-- D-pad -->
+    <div id="dpad">
+      <div class="dpad-cell"></div>
+      <button class="dpad-btn" data-key="ArrowUp"    aria-label="Up">▲</button>
+      <div class="dpad-cell"></div>
+      <button class="dpad-btn" data-key="ArrowLeft"  aria-label="Left">◀</button>
+      <div class="dpad-cell"></div>
+      <button class="dpad-btn" data-key="ArrowRight" aria-label="Right">▶</button>
+      <div class="dpad-cell"></div>
+      <button class="dpad-btn" data-key="ArrowDown"  aria-label="Down">▼</button>
+      <div class="dpad-cell"></div>
+    </div>
+    <!-- Talk / interact button -->
+    <button id="touch-talk-btn" aria-label="Talk">
+      <span class="talk-key">E</span>
+      <span class="talk-text">HABLAR</span>
+    </button>
+  </div>
+
+  <!-- Completion banner -->
+  <div id="completion-banner" style="display:none">
+    <h2 id="cb-title"></h2>
+    <p id="cb-sub"></p>
+    <div class="cb-actions">
+      <button id="cb-btn-port"></button>
+      <button id="cb-btn-replay"></button>
+    </div>
+  </div>
+
+  <!-- Modal overlay (dialog / quiz / result) -->
+  <div id="modal-overlay" style="display:none">
+    <div class="modal-inner">
+
+      <!-- Step 1: Dialog -->
+      <div id="dialog-step" class="modal-box" style="display:none">
+        <canvas id="npc-avatar-canvas" width="60" height="60"></canvas>
+        <div class="dialog-body">
+          <div id="dialog-npc-name"></div>
+          <div id="dialog-text-content"></div>
+          <button id="dialog-continue-btn"></button>
+        </div>
+      </div>
+
+      <!-- Step 2: Quiz -->
+      <div id="quiz-step" class="modal-box" style="display:none">
+        <div id="quiz-question"></div>
+        <div class="quiz-opts" id="quiz-opts"></div>
+      </div>
+
+      <!-- Step 3: Result -->
+      <div id="result-step" class="modal-box" style="display:none">
+        <div id="result-text"></div>
+        <button id="result-btn"></button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SCREEN 4 — PORTFOLIO
+══════════════════════════════════════ -->
+<div id="screen-portfolio" style="display:none">
+  <div class="port-inner" id="port-content"></div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SCRIPTS — load order matters
+══════════════════════════════════════ -->
+<!-- GSAP from CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+<!-- App modules (order: state → render → hud → modal → screens → game → touch → portfolio → main) -->
+<script src="js/state.js"></script>
+<script src="js/render.js"></script>
+<script src="js/hud.js"></script>
+<script src="js/modal.js"></script>
+<script src="js/screens.js"></script>
+<script src="js/game.js"></script>
+<script src="js/touch.js"></script>
+<script src="js/portfolio.js"></script>
+<script src="js/main.js"></script>
+
+</body>
+</html>

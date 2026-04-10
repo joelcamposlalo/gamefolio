@@ -43,6 +43,14 @@
   .lang-divider { height: 70px; }
 }
 
+/* Media Query para desaparecer en móviles */
+@media (max-width: 768px) {
+  .lang-divider {
+    display: none !important;
+  }
+}
+
+
 .lang-heading {
   text-align: center;
 }
